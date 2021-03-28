@@ -20,6 +20,10 @@ public class PropertyListResponseDTO {
 	private int parkingSpaces;
 	private LocalDateTime createdAt;
 	private PricingInfosResponseDTO pricingInfos;
+	
+	// TODO: DEBUG
+	private double lat;
+	private double lon;
 
 	@Getter
 	@Builder

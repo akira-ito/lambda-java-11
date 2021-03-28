@@ -15,16 +15,11 @@ import com.zap.api.interfaces.dto.PropertyListResponseDTO;
 import lombok.AllArgsConstructor;
 
 @Service
-//@RequiredArgsConstructor
 @AllArgsConstructor
 public class PropertyService {
 	private final PropertyRepository propertyRepository;
 	private final ConversionService conversionService;
 
-//	@Autowired
-//	public PropertyService(PropertyRepository propertyRepository) {
-//		this.propertyRepository = propertyRepository;
-//	}
 
 	public Pagination<PropertyListResponseDTO> getAllByType(PortalOriginType type, Page page) {
 		Pagination<Property> paginationProperties = this.propertyRepository.findAllByType(type, page);

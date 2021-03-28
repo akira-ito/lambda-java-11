@@ -10,7 +10,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import com.zap.api.domain.property.converter.PropertyConverter;
+import com.zap.api.domain.property.converter.PropertyToPropertyListResponseDTOConverter;
 
 @Configuration
 public class ZapConfiguration implements WebMvcConfigurer {
@@ -24,7 +24,7 @@ public class ZapConfiguration implements WebMvcConfigurer {
 
 	@Override
 	public void addFormatters(FormatterRegistry registry) {
-		registry.addConverter(new PropertyConverter());
+		registry.addConverter(new PropertyToPropertyListResponseDTOConverter());
 	}
 
 	@Override

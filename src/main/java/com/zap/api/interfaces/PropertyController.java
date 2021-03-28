@@ -17,6 +17,12 @@ import com.zap.api.interfaces.dto.PropertyListResponseDTO;
 
 import lombok.RequiredArgsConstructor;
 
+/**
+ * Classe que representa os endpoints para os imóveis.
+ * 
+ * @author Edson Akira Ito
+ * @version v1
+ */
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/v1/properties")
@@ -24,6 +30,12 @@ public class PropertyController {
 	private final PropertyService propertyService;
 	private final ZapProperties zapProperties;
 
+	/**
+	 * @param portalOriginType A origem do {@link PortalOriginType portal}
+	 * @param pageNumber       O número da pagina.
+	 * @param pageSize         A quantidade de imóveis por pagina.
+	 * @return A lista de imóveis paginada.
+	 */
 	@GetMapping()
 	public ResponseEntity<Pagination<PropertyListResponseDTO>> list(
 			@RequestParam(value = "portalOriginType") PortalOriginType portalOriginType,
