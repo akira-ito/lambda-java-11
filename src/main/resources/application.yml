@@ -1,0 +1,16 @@
+spring:
+    jackson:
+        serialization:
+            write_dates_as_timestamps: false
+server:
+    servlet:
+        contextPath: /api
+zap:
+    pagination:
+        pageNumber: 1
+        pageSize: 10
+    boundingBox:
+        minlon: -46.693419
+        minlat: -23.568704
+        maxlon: -46.641146
+        maxlat: -23.546686

@@ -43,8 +43,8 @@ public class PropertyController {
 			@RequestParam(value = "pageSize", required = false) Optional<Integer> pageSize) {
 
 		Pagination<PropertyListResponseDTO> properties = this.propertyService.getAllByType(portalOriginType,
-				Page.of(pageNumber.orElseGet(this.zapProperties::getPageNumber),
-						pageSize.orElseGet(this.zapProperties::getPageSize)));
+				Page.of(pageNumber.orElseGet(this.zapProperties.getPagination()::getPageNumber),
+						pageSize.orElseGet(this.zapProperties.getPagination()::getPageSize)));
 		return ResponseEntity.ok(properties);
 	}
 }

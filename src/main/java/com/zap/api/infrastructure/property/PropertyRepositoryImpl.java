@@ -14,28 +14,32 @@ import com.zap.api.common.Pagination;
 import com.zap.api.domain.PortalOriginType;
 import com.zap.api.domain.property.Property;
 import com.zap.api.domain.property.PropertyRepository;
-import com.zap.api.domain.property.filter.AbstractPortalPropertyFilter;
-import com.zap.api.domain.property.filter.PortalCommonPropertyFilter;
-import com.zap.api.domain.property.filter.PortalVivaRealPropertyFilter;
-import com.zap.api.domain.property.filter.PortalZapPropertyFilter;
+import com.zap.api.domain.property.filter.PortalPropertyFilterService;
+
+import lombok.RequiredArgsConstructor;
 
 @Repository
+@RequiredArgsConstructor
 public class PropertyRepositoryImpl implements PropertyRepository {
+	private final PortalPropertyFilterService filterService;;
 
 	@Override
-	public Pagination<Property> findAllByType(PortalOriginType type, Page page) {
+	public Pagination<Property> findAllByType(final PortalOriginType type, final Page page) {
 
-		PortalCommonPropertyFilter commonFilter = new PortalCommonPropertyFilter();
-		Predicate<Property> predicate = property -> true;
-		predicate = predicate.and(commonFilter.rental().or(commonFilter.sale()));
 		
-		if (PortalOriginType.ZAP.equals(type)) {
-			AbstractPortalPropertyFilter zapFilter = new PortalZapPropertyFilter();
-			predicate = predicate.and(zapFilter.rental().or(zapFilter.sale()));
-		} else if (PortalOriginType.VIVA_REAL.equals(type)) {
-			AbstractPortalPropertyFilter zapFilter = new PortalVivaRealPropertyFilter();
-			predicate = predicate.and(zapFilter.rental().or(zapFilter.sale()));
-		}
+		Predicate<Property> predicate = this.filterService.getFilterByType(type);
+		
+//		PortalCommonPropertyFilter commonFilter = new PortalCommonPropertyFilter();
+//		Predicate<Property> predicate = property -> true;
+//		predicate = predicate.and(commonFilter.rental().or(commonFilter.sale()));
+//		
+//		if (PortalOriginType.ZAP.equals(type)) {
+//			AbstractPortalPropertyFilter zapFilter = new PortalZapPropertyFilter();
+//			predicate = predicate.and(zapFilter.rental().or(zapFilter.sale()));
+//		} else if (PortalOriginType.VIVA_REAL.equals(type)) {
+//			AbstractPortalPropertyFilter zapFilter = new PortalVivaRealPropertyFilter();
+//			predicate = predicate.and(zapFilter.rental().or(zapFilter.sale()));
+//		}
 
 		Stream<Property> stream = DataMock.properties.stream().filter(predicate)
 				.sorted(Comparator.comparing(Property::getId));
