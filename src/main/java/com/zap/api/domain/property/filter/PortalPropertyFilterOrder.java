@@ -9,8 +9,10 @@ import lombok.Getter;
 @Getter
 public enum PortalPropertyFilterOrder {
 	COMMON_FILTER(PortalOriginType.ZAP, PortalOriginType.VIVA_REAL),
-	ZAP_VALID_USABLE_AREA_FILTER(PortalOriginType.ZAP), ZAP_FILTER(PortalOriginType.ZAP),
-	VIVA_REAL_FILTER(PortalOriginType.VIVA_REAL);
+	SALE_VALID_USABLE_AREA_FILTER(PortalOriginType.ZAP),
+	RENTAL_SALE_VALID_PRICE_MIN_VALUE_FILTER(PortalOriginType.ZAP),
+	RENTAL_VALID_CONDO_FEE_FILTER(PortalOriginType.VIVA_REAL),
+	RENTAL_SALE_VALID_PRICE_MAX_VALUE_FILTER(PortalOriginType.VIVA_REAL);
 
 	private List<PortalOriginType> types;
 

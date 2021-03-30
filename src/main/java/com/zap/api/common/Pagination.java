@@ -15,6 +15,10 @@ public class Pagination<T> {
 	private long totalCount;
 	private Collection<T> listings;
 
+	public static <T> Pagination<T> of(Page page, long totalCount, Collection<T> listings) {
+		return Pagination.of(page.getPageNumber(), page.getPageSize(), totalCount, listings);
+	}
+
 	public <DTO> Pagination<DTO> fromDTO(Collection<DTO> listings) {
 		return Pagination.of(this.pageNumber, this.pageSize, this.totalCount, listings);
 	}

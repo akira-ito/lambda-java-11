@@ -14,5 +14,6 @@ public class PricingInfos{
 	private BigDecimal price;
     private BigDecimal rentalTotalPrice;
     private BusinessType businessType;
-    private Integer monthlyCondoFee;
+    private BigDecimal monthlyCondoFee;
+    private PeriodType period;
 }

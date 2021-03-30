@@ -17,7 +17,7 @@ public class PropertyToPropertyListResponseDTOConverter implements Converter<Pro
 		PricingInfosResponseDTOBuilder pricingInfosDTOBuilder = PropertyListResponseDTO.PricingInfosResponseDTO
 				.builder().yearlyIptu(pricingInfos.getYearlyIptu()).price(pricingInfos.getPrice())
 				.rentalTotalPrice(pricingInfos.getRentalTotalPrice()).businessType(pricingInfos.getBusinessType())
-				.monthlyCondoFee(pricingInfos.getMonthlyCondoFee());
+				.monthlyCondoFee(pricingInfos.getMonthlyCondoFee()).period(pricingInfos.getPeriod());
 		PropertyListResponseDTOBuilder propertyListDTOBuilder = PropertyListResponseDTO.builder().id(property.getId())
 				.images(property.getImages()).bathrooms(property.getBathrooms()).bedrooms(property.getBedrooms())
 				.usableAreas(property.getUsableAreas()).createdAt(property.getCreatedAt())

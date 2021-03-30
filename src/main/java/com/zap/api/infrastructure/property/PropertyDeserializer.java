@@ -21,6 +21,7 @@ import com.zap.api.domain.property.GeoLocation;
 import com.zap.api.domain.property.ListingStatusType;
 import com.zap.api.domain.property.ListingType;
 import com.zap.api.domain.property.Location;
+import com.zap.api.domain.property.PeriodType;
 import com.zap.api.domain.property.PrecisionType;
 import com.zap.api.domain.property.PricingInfos;
 import com.zap.api.domain.property.Property;
@@ -68,21 +69,22 @@ public class PropertyDeserializer extends StdDeserializer<Property> {
 
 		JsonNode pricingInfosNode = node.get("pricingInfos");
 
-		BigDecimal yearlyIptu = Optional.ofNullable(node.get("yearlyIptu")).map(n -> BigDecimal.valueOf(n.asDouble()))
-				.orElse(null);
-		BigDecimal price = Optional.ofNullable(pricingInfosNode.get("price")).map(n -> BigDecimal.valueOf(n.asDouble()))
-				.orElse(null);
+		BigDecimal yearlyIptu = Optional.ofNullable(node.get("yearlyIptu"))
+				.map(n -> BigDecimal.valueOf(n.asDouble()).setScale(2)).orElse(null);
+		BigDecimal price = Optional.ofNullable(pricingInfosNode.get("price"))
+				.map(n -> BigDecimal.valueOf(n.asDouble()).setScale(2)).orElse(null);
 		BigDecimal rentalTotalPrice = Optional.ofNullable(pricingInfosNode.get("rentalTotalPrice"))
-				.map(n -> BigDecimal.valueOf(n.asDouble())).orElse(null);
+				.map(n -> BigDecimal.valueOf(n.asDouble()).setScale(2)).orElse(null);
 		BusinessType businessType = BusinessType.fromString(pricingInfosNode.get("businessType").asText());
-		Integer monthlyCondoFee = Optional.ofNullable(pricingInfosNode.get("monthlyCondoFee")).map(n -> n.asInt())
-				.orElse(null);
-		PricingInfos pricingInfos = PricingInfos.of(yearlyIptu, price, rentalTotalPrice, businessType, monthlyCondoFee);
+		BigDecimal monthlyCondoFee = Optional.ofNullable(pricingInfosNode.get("monthlyCondoFee"))
+				.map(n -> BigDecimal.valueOf(n.asDouble()).setScale(2)).orElse(null);
+		PeriodType periodType = Optional.ofNullable(pricingInfosNode.get("period"))
+				.map(n -> PeriodType.fromString(n.asText())).orElse(null);
+		PricingInfos pricingInfos = PricingInfos.of(yearlyIptu, price, rentalTotalPrice, businessType, monthlyCondoFee,
+				periodType);
 
 		Property property = Property.of(usableAreas, listingType, createdAt, listingStatus, id, parkingSpaces,
 				updatedAt, owner, images, address, bathrooms, bedrooms, pricingInfos);
-//		Property property = Property.of(usableAreas, listingType, createdAt, listingStatus, id, parkingSpaces,
-//				updatedAt, owner, images, address, bathrooms, bedrooms, pricingInfos);
 		return property;
 	}
 

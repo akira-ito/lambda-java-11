@@ -2,10 +2,12 @@ package com.zap.api.common;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 @Getter
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
+@EqualsAndHashCode
 public class Page {
 	private final int pageNumber;
 	private final int pageSize;

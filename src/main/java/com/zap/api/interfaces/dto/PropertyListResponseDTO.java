@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import com.zap.api.domain.property.BusinessType;
+import com.zap.api.domain.property.PeriodType;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -32,6 +33,7 @@ public class PropertyListResponseDTO {
 		private BigDecimal price;
 		private BigDecimal rentalTotalPrice;
 		private BusinessType businessType;
-		private Integer monthlyCondoFee;
+		private BigDecimal monthlyCondoFee;
+	    private PeriodType period;
 	}
 }
