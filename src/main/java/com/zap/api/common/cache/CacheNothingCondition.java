@@ -10,7 +10,7 @@ public class CacheNothingCondition<T> implements CacheCondition<T> {
 
 
 	@Override
-	public CacheCondition<T> saving() {
+	public CacheCondition<T> saving(CacheCondition<T> condition) {
 		return this;
 	}
 

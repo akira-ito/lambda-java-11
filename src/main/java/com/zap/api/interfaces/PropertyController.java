@@ -1,7 +1,6 @@
 package com.zap.api.interfaces;
 
 import java.time.Duration;
-import java.util.List;
 import java.util.Optional;
 import java.util.function.Supplier;
 
@@ -15,9 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.zap.api.common.Page;
 import com.zap.api.common.Pagination;
 import com.zap.api.common.cache.CacheArgumentCondition;
-import com.zap.api.common.cache.CacheDurationCondition;
-import com.zap.api.common.cache.CacheManager;
-import com.zap.api.common.cache.CacheNothingCondition;
 import com.zap.api.common.cache.CacheManager.CacheGenericManager;
 import com.zap.api.config.ZapProperties;
 import com.zap.api.domain.PortalOriginType;

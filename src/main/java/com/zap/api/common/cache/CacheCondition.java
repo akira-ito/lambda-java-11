@@ -5,5 +5,5 @@ import java.util.function.BiPredicate;
 public interface CacheCondition<T> extends BiPredicate<T, CacheCondition<T>> {
 	String getName();
 
-	CacheCondition<T> saving();
+	CacheCondition<T> saving(CacheCondition<T> condition);
 }

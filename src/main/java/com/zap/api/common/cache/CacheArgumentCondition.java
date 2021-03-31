@@ -20,15 +20,16 @@ public class CacheArgumentCondition<T> implements CacheCondition<T> {
 		this.duration = new CacheDurationCondition<>(name, duration);
 	}
 
-	private CacheArgumentCondition(CacheArgumentCondition<T> cacheDuration, CacheCondition<T> condition) {
-		this.name = cacheDuration.name;
-		this.args = cacheDuration.args;
+	private CacheArgumentCondition(CacheArgumentCondition<T> cache, CacheCondition<T> condition) {
+		this.name = cache.name;
+		this.args = cache.args;
 		this.duration = condition;
 	}
 
 	@Override
-	public CacheCondition<T> saving() {
-		return new CacheArgumentCondition<>(this, this.duration.saving());
+	public CacheCondition<T> saving(CacheCondition<T> condition) {
+		var cache = condition instanceof CacheArgumentCondition ? (CacheArgumentCondition<T>) condition : this;
+		return new CacheArgumentCondition<>(cache, this.duration.saving(condition));
 	}
 
 	@Override

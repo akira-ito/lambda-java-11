@@ -1,6 +1,5 @@
 package com.zap.api.common.cache;
 
-import java.time.Duration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,20 +29,20 @@ public class CacheManager<T> {
 	}
 
 	public T getValueByCacheName(String name) {
-		return this.getValueByCacheName(name, this.supplier,
-				new CacheDurationCondition<T>(name, Duration.ofSeconds(2)));
+		return this.getValueByCacheName(name, this.supplier, CacheNothingCondition.of(name));
 	}
 
 	@SuppressWarnings("unchecked")
-	public <P extends T> P getValueByCacheName(String name, Supplier<P> supplier, CacheCondition<P> condition) {
+	public <P extends T> P getValueByCacheName(String name, Supplier<P> supplier, CacheCondition<T> condition) {
 		synchronized (this.objectCached) {
 			this.cache.compute(name, (key, cacheValue) -> {
 				if (Objects.isNull(cacheValue))
 					cacheValue = Pair.of((CacheCondition<T>) condition, null);
 
-				if (cacheValue.getKey().test(cacheValue.getValue(), (CacheCondition<T>) condition))
+				CacheCondition<T> cacheCondition = cacheValue.getKey();
+				if (cacheCondition.test(cacheValue.getValue(), condition))
 					return cacheValue;
-				return Pair.of(cacheValue.getKey().saving(), supplier.get());
+				return Pair.of(cacheCondition.saving(condition), supplier.get());
 			});
 
 			return (P) this.cache.get(name).getValue();

@@ -23,7 +23,7 @@ public class CacheDurationCondition<T> implements CacheCondition<T> {
 	}
 
 	@Override
-	public CacheCondition<T> saving() {
+	public CacheCondition<T> saving(CacheCondition<T> condition) {
 		return new CacheDurationCondition<>(this, LocalTime.now());
 	}
 

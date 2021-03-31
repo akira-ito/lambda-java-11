@@ -1,5 +1,6 @@
 package com.zap.api.infrastructure.property;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
@@ -13,8 +14,8 @@ import org.springframework.stereotype.Repository;
 import com.zap.api.common.Page;
 import com.zap.api.common.Pagination;
 import com.zap.api.common.Pair;
+import com.zap.api.common.cache.CacheDurationCondition;
 import com.zap.api.common.cache.CacheManager;
-import com.zap.api.common.cache.CacheNothingCondition;
 import com.zap.api.domain.PortalOriginType;
 import com.zap.api.domain.property.Property;
 import com.zap.api.domain.property.PropertyRepository;
@@ -30,10 +31,9 @@ public class PropertyRepositoryMock implements PropertyRepository {
 	public PropertyRepositoryMock(PortalPropertyFilterService filterService, DataMock dataMock) {
 		this.filterService = filterService;
 //		this.dataMock = dataMock;
-		this.propertiesCache = new CacheManager<>(this, dataMock::loadAndGetProperties,
-				List.of(CacheNothingCondition.of("findAllByPredicate")
-				// new CacheDurationCondition<>("findAllByPredicate", Duration.ofSeconds(5))
-				));
+		this.propertiesCache = new CacheManager<>(this, dataMock::loadAndGetProperties, List.of(
+//						CacheNothingCondition.of("findAllByPredicate")
+				new CacheDurationCondition<>("findAllByPredicate", Duration.ofSeconds(5))));
 	}
 
 	@Override
