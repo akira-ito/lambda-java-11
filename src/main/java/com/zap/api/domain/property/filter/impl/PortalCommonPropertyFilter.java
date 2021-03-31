@@ -1,6 +1,6 @@
 package com.zap.api.domain.property.filter.impl;
 
-import java.util.function.Predicate;
+import java.util.function.BiPredicate;
 
 import org.springframework.stereotype.Component;
 
@@ -21,18 +21,18 @@ public class PortalCommonPropertyFilter extends AbstractPortalPropertyFilter
 	}
 
 	@Override
-	public Predicate<Property> rentalFilter() {
+	public BiPredicate<Property, ContextPortalPropertyFilter> rentalFilter() {
 		return notLatLongEqualZero();
 	}
 
 	@Override
-	public Predicate<Property> saleFilter() {
+	public BiPredicate<Property, ContextPortalPropertyFilter> saleFilter() {
 		return notLatLongEqualZero();
 
 	}
 
-	private Predicate<Property> notLatLongEqualZero() {
-		return property -> {
+	private BiPredicate<Property, ContextPortalPropertyFilter> notLatLongEqualZero() {
+		return (property, context) -> {
 			GeoLocation geoLocation = property.getAddress().getGeoLocation();
 			return !Location.of(0, 0).equals(geoLocation.getLocation());
 		};

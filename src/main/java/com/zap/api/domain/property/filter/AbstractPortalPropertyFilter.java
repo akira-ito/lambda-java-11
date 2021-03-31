@@ -1,5 +1,8 @@
 package com.zap.api.domain.property.filter;
 
+import com.zap.api.domain.PortalOriginType;
+
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
@@ -31,4 +34,10 @@ public abstract class AbstractPortalPropertyFilter {
 //	Predicate<Property> saleFilter() {
 //		return property -> true;
 //	}
+	
+	@Getter
+	@AllArgsConstructor(staticName = "of")
+	public static class ContextPortalPropertyFilter {
+		private PortalOriginType portalOriginType;
+	}
 }

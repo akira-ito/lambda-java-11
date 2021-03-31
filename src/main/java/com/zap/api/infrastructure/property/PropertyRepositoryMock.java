@@ -18,6 +18,7 @@ import com.zap.api.common.cache.CacheNothingCondition;
 import com.zap.api.domain.PortalOriginType;
 import com.zap.api.domain.property.Property;
 import com.zap.api.domain.property.PropertyRepository;
+import com.zap.api.domain.property.filter.AbstractPortalPropertyFilter.ContextPortalPropertyFilter;
 import com.zap.api.domain.property.filter.PortalPropertyFilterService;
 
 @Repository
@@ -38,7 +39,8 @@ public class PropertyRepositoryMock implements PropertyRepository {
 	@Override
 	public Pagination<Property> findAllByType(final PortalOriginType type, final Page page) {
 
-		Predicate<Property> predicate = this.filterService.getFilterByType(type);
+		ContextPortalPropertyFilter context = ContextPortalPropertyFilter.of(type);
+		Predicate<Property> predicate = this.filterService.getFilterByType(type, context);
 
 //		PortalCommonPropertyFilter commonFilter = new PortalCommonPropertyFilter();
 //		Predicate<Property> predicate = property -> true;

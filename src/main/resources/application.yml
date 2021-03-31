@@ -14,3 +14,14 @@ zap:
         minlat: -23.568704
         maxlon: -46.641146
         maxlat: -23.546686
+    filter:
+        ZAP:
+            minSalePrice: 600_000
+            minRentalPrice: 3_500.00
+            boundingMinSalePricePercentage: -10
+            minSquareMeterSalePrice: 3_500
+        VIVA_REAL:
+            maxSalePrice: 700_000
+            maxRentalPrice: 4_000.0
+            boundingMaxRentalPricePercentage: 50
+            maxCondoFeePercentage: 30

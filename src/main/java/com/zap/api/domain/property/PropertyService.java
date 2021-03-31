@@ -13,6 +13,7 @@ import com.zap.api.common.Pagination;
 import com.zap.api.common.Pair;
 import com.zap.api.domain.PortalOriginType;
 import com.zap.api.domain.property.filter.PortalPropertyFilterService;
+import com.zap.api.domain.property.filter.AbstractPortalPropertyFilter.ContextPortalPropertyFilter;
 import com.zap.api.interfaces.dto.PropertyListResponseDTO;
 
 import lombok.AllArgsConstructor;
@@ -25,7 +26,8 @@ public class PropertyService {
 	private final PortalPropertyFilterService portalPropertyFilterService;
 
 	public Pagination<PropertyListResponseDTO> getAllByType(PortalOriginType type, Page page) {
-		Predicate<Property> predicate = this.portalPropertyFilterService.getFilterByType(type);
+		Predicate<Property> predicate = this.portalPropertyFilterService.getFilterByType(type,
+				ContextPortalPropertyFilter.of(type));
 
 		Pair<Long, Stream<Property>> findAll = this.propertyRepository.findAllByPredicate(predicate, page);
 		List<PropertyListResponseDTO> propertiesDTO = findAll.getValue()
